@@ -1,5 +1,4 @@
 
-
 type Cell = '' | "X" | "O"
 
 type Board = [Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell]
@@ -30,6 +29,8 @@ type Outcome = {
 
 //evaluate the board to see if it satisfies any of the win conditions
 function evaluateBoardForWinState(board: Board): Outcome {
+
+
 
     return { outcome: 'keepgoing' }
 }

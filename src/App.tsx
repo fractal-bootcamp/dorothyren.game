@@ -1,14 +1,41 @@
+import { useState } from 'react';
 import './App.css'
 
-const board = [
-  [' ', ' ', ' '],
-  [' ', ' ', ' '],
-  [' ', ' ', ' ']
-];
+function Square({ value, onSquareClick }) {
+  return <button className="square" onClick={onSquareClick}>{value}</button>
+}
 
-type WinState = {
-  outcome: "WIN" | "TIE" | null;
-  winner: "X" | "O" | null;
+export default function Board() {
+  //this declares a state variable named squares that defaults to an array of 9 nulls corresponding to the 9 squares
+  const [squares, setSquares] = useState(Array(9).fill(null))
+
+  //The handleClick function creates a copy of the squares array (nextSquares) with the JavaScript slice() Array method. 
+  //Then, handleClick updates the nextSquares array to add X to the first ([0] index) square.
+  function handleClick() {
+    const nextSquares = squares.slice();
+    nextSquares[0] = "X";
+    setSquares(nextSquares);
+  }
+
+  return (
+    <>
+      <div className="board-row">
+        < Square value={squares[0]} onSquareClick={handleClick} />
+        < Square value={squares[1]} />
+        < Square value={squares[2]} />
+      </div>
+      <div>
+        < Square value={squares[3]} />
+        < Square value={squares[4]} />
+        < Square value={squares[5]} />
+      </div>
+      <div>
+        < Square value={squares[6]} />
+        < Square value={squares[7]} />
+        < Square value={squares[8]} />
+      </div>
+    </>
+  )
 }
 
 // const checkRow = (row: string[]) => {
@@ -60,15 +87,5 @@ type WinState = {
 
 
 
-function App() {
-  return (
-    <>
-      <div>
-        insert tic-tac-toe here
-      </div>
 
-    </>
-  )
-}
 
-export default App

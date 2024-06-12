@@ -6,17 +6,6 @@ function cubed(x) {
     return (x * x * x)
 }
 
-function a2(x) {
-    return (x + squared(x) + cubed(x))
-}
-
-console.log(a2(1))
-
-function f2(x, y, z) {
-    return (
-        a2(x) + a2(y) + a2(z))
-}
-console.log(f2(1, 1, 1))
 
 
 

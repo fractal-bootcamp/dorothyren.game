@@ -1,3 +1,4 @@
+//Score of a String Leetcode
 
 function scoreOfString(s: string): number {
 
