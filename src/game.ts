@@ -1,7 +1,7 @@
 
-type Cell = string | null
+type Cell = string
 
-type Board = [Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell]
+export type Board = [Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell, Cell]
 
 type Game = {
     board: Board
@@ -23,44 +23,77 @@ type Position = number
 type WinPosition = [Position, Position, Position]
 
 const game = {
-    board: [null, null, null, null, null, null, null, null, null],
+    board: ['', '', '', '', '', '', '', '', ''],
 }
 
 
-function checkWinCondition(game: Game): WinCondition {
+const listofWinPositions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+] satisfies WinPosition[]
+
+// const listOfRowWins = [
+
+// ] satisfies WinPosition[]
+
+// const listOfColumnWins = [
+
+// ] satisfies WinPosition[]
+
+// const listOfDiagonalWins = [
+
+// ] satisfies WinPosition[]
+
+export function checkWinCondition(game: Game): WinCondition {
 
     // insert computer vision win detection.
     const possibleWinPositions: WinPosition[] = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
+        ...listofWinPositions
     ]
 
-    function isWinningPosition(winPosition: WinPosition): boolean {
+    // checks if a given position is a winning position, returns boolean 
+    function getWinner(winPosition: WinPosition): Player {
+        // board to check the indexes in the winPositions and see if they are all the same
+        // if value at first index === value at second index === value at third index
 
-        const isWin = winPosition.every(index => {
-            // this is the actual X or O or null at the position
-            const firstValue = game.board[winPosition[0]]
-            const boardValue = game.board[index]
-            const boardValueExists = boardValue != null
-            const boardValueMatches = boardValue === firstValue
-            if (boardValueExists && boardValueMatches) return true
-            return false
-        })
+        const first = winPosition[0]
+        const second = winPosition[1]
+        const third = winPosition[2]
 
-        return isWin
+        const firstItem = game.board[first];
+        const secondItem = game.board[second];
+        const thirdItem = game.board[third];
+
+        if (firstItem === secondItem && secondItem === thirdItem) {
+            return firstItem as Player
+        }
+
+        return ""
     }
 
-    const winningPosition = possibleWinPositions.find(isWinningPosition)
+    // const winningPosition = possibleWinPositions.find((value) => getWinner(value))
+    // FOR EACH WIN POSITION - get a winner, if there's a winner, return the winner and "WIN!"
+    for (let i = 0; i < possibleWinPositions.length; i++) {
+        const winner = getWinner(possibleWinPositions[i])
 
-    if (winningPosition) {
-        // THESE ARE WINS
-        return { outcome: 'win', winner: game.board[winningPosition[0]] as string }
+        if (winner && winner !== "") {
+            return { outcome: 'win', winner }
+        }
     }
 
-    const isStillPlaying = game.board.find(cell => cell == null)
-    const isDraw = !isStillPlaying
+    // if no winner, determine if the board is full (draw)
+    const areThereAnySpaces = game.board.includes("")
+    const isDraw = !areThereAnySpaces;
 
     if (isDraw) return { outcome: 'draw' }
 
 
+    // if not full and no winner, keep playing
     return { outcome: null }
 }

@@ -11,39 +11,39 @@ type WinState = {
   winner: "X" | "O" | null;
 }
 
-const checkRow = (row: string[]) => {
-  const winner = row.reduce((prev, curr) => {
+// const checkRow = (row: string[]) => {
+//   const winner = row.reduce((prev, curr) => {
 
-    if (prev === "") {
-      return null;
-    }
+//     if (prev === "") {
+//       return null;
+//     }
 
-    if (prev === curr) {
-      return curr
-    }
-    return null
-  })
+//     if (prev === curr) {
+//       return curr
+//     }
+//     return null
+//   })
 
-  return winner;
-}
+//   return winner;
+// }
 
 //return X, O, null
 
 
-export const checkWinCondition = (b: typeof board): WinState => {
-  //check rows for equivalence
+// export const checkWinCondition = (b: typeof board): WinState => {
+//   //check rows for equivalence
 
-  for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
-    const winner = checkRow(b[rowIndex])
-    if (winner) {
-      return { outcome: !!winner ? "win" : null, winner: winner }
-    }
-  }
+//   for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
+//     const winner = checkRow(b[rowIndex])
+//     if (winner) {
+//       return { outcome: !!winner ? "win" : null, winner: winner }
+//     }
+//   }
 
-  return (
-    outcome: null,
-    winner: null
-  )
+//   return (
+//     outcome: null,
+//     winner: null
+//   )
 
 
 
@@ -51,12 +51,12 @@ export const checkWinCondition = (b: typeof board): WinState => {
 //check diagonals for equivalence
 
 
-return { outcome: null, winner: null }
-  //X, O, null
-  // game conditions: win, tie, or neither 
-  // if it's a win, who won? (X/O)
+// return { outcome: null, winner: null }
+//   //X, O, null
+//   // game conditions: win, tie, or neither 
+//   // if it's a win, who won? (X/O)
 
-}
+// }
 
 
 
