@@ -11,17 +11,6 @@ export default function Board() {
   //this declares a state variable named squares that defaults to an array of 9 nulls corresponding to the 9 squares
   const [squares, setSquares] = useState(Array(9).fill(null))
 
-
-  //creating a status section to the Board component
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next Move: " + (xisNext ? "X" : "O");
-  }
-
-
   //The handleClick function creates a copy of the squares array (nextSquares) with the JavaScript slice() Array method. 
   //Then, handleClick updates the nextSquares array to add X to the first ([0] index) square.
   //state handling is now in the parent Board component, and the Board passes props to the child Square components so they 
@@ -64,8 +53,24 @@ export default function Board() {
         return squares[a];
       }
     }
+    //check for draw and return "draw"
+    //if squares are full, return "draw"
+
+    if (squares.every(square => square !== null)) {
+      return "draw";
+    }
     return null;
   }
+
+  //creating a status section to the Board component
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next Move: " + (xisNext ? "X" : "O");
+  }
+
 
   return (
     <>
@@ -88,6 +93,8 @@ export default function Board() {
     </>
   )
 }
+
+
 
 // const checkRow = (row: string[]) => {
 //   const winner = row.reduce((prev, curr) => {
