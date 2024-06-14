@@ -73,7 +73,11 @@ const getDiagonals = (b: typeof board): Item[] => {
 }
 
 const checkBoard = (b: typeof board) => {
-    const allpossibleWinConditions = 
+    const allpossibleWinConditions = [
+        ...rows,...columns,...diagonals
+    ]
+    Check(allpossibleWinConditions);
+    
     const rows = b
     const rowsOutcomes = Check(rows)
 

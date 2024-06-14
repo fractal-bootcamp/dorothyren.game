@@ -2,14 +2,16 @@ import { useState } from 'react';
 import './App.css'
 
 function Square({ value, onSquareClick }) {
-  return <button className="square" onClick={onSquareClick}>{value}</button>
+  return <div className="flex justify-center items-center h-[100px] w-[100px] bg-lime hover:bg-blue-500 text-white rounded border-b-4 border-blue-700 hover:border-blue-500 " onClick={onSquareClick}> {value} </div>
 }
+
+type Cell = "X" | "O" | null
 
 export default function Board() {
   //keep track of the state by adding another state to the Board
   const [xisNext, setXIsNext] = useState(true);
   //this declares a state variable named squares that defaults to an array of 9 nulls corresponding to the 9 squares
-  const [squares, setSquares] = useState(Array(9).fill(null))
+  const [squares, setSquares] = useState<Cell[]>(Array(9).fill(null))
 
   //The handleClick function creates a copy of the squares array (nextSquares) with the JavaScript slice() Array method. 
   //Then, handleClick updates the nextSquares array to add X to the first ([0] index) square.
@@ -57,7 +59,7 @@ export default function Board() {
     //if squares are full, return "draw"
 
     if (squares.every(square => square !== null)) {
-      return "draw";
+      return null;
     }
     return null;
   }
@@ -67,28 +69,25 @@ export default function Board() {
   let status;
   if (winner) {
     status = "Winner: " + winner;
-  } else {
+  }
+  else if
+    (squares.every(square => square !== null)) {
+    status = "it's a draw";
+  }
+  else {
     status = "Next Move: " + (xisNext ? "X" : "O");
   }
 
 
   return (
     <>
-      <div className="status">{status}</div>
-      <div className="board-row">
-        < Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        < Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        < Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div>
-        < Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        < Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        < Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div>
-        < Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        < Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        < Square value={squares[8]} onSquareClick={() => handleClick(8)} />
+      <div className="w-screen h-screen flex items-center justify-center">
+        <div className="flex flex-wrap w-[300px] h-[300px]">
+          {squares.map((elementOfSquaresArray, index) =>
+            < Square value={elementOfSquaresArray} onSquareClick={() => handleClick(index)} />
+          )}
+        </div>
+        <div className="status bold text">{status}</div>
       </div>
     </>
   )

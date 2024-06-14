@@ -5,6 +5,12 @@
 //     return arr.every(value => value !== null)
 // }
 
+
+function isArrayFull(arr: Array<string | null>) {
+    //return true or false depending on if the array is full 
+    return arr.every()
+}
+
 function isArrayFullWithForLoop(arr: Array<string | null>) {
 
     let isAnyNull = false
